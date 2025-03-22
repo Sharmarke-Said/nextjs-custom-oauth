@@ -38,6 +38,7 @@ export async function GET(
       await cookies()
     );
     const user = await connectUserToAccount(oAuthUser, provider);
+    console.log("user", user)
     await createUserSession(user, await cookies());
   } catch (error) {
     console.error(error);
