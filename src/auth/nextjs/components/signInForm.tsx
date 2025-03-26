@@ -8,6 +8,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { SiGithub, SiGoogle, SiDiscord } from "react-icons/si";
+
 import { oAuthSignIn, signIn } from "../actions";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -38,26 +40,40 @@ export function SignInForm() {
         className="space-y-8"
       >
         {error && <p className="text-destructive">{error}</p>}
-        <div className="flex gap-4">
-          <Button
-            type="button"
-            onClick={async () => await oAuthSignIn("discord")}
-          >
-            Discord
-          </Button>
-          <Button
-            type="button"
-            onClick={async () => await oAuthSignIn("github")}
-          >
-            GitHub
-          </Button>
-          <Button
-            type="button"
-            onClick={async () => await oAuthSignIn("google")}
-          >
-            Google
-          </Button>
+
+        {/* OAuth Section */}
+        <div className="text-center space-y-4">
+          <p className="text-gray-500">Continue as</p>
+          <div className="flex justify-center gap-3">
+            {" "}
+            {/* Horizontal Layout */}
+            <Button
+              type="button"
+              variant="outline"
+              className="flex items-center gap-2"
+              onClick={async () => await oAuthSignIn("discord")}
+            >
+              <SiDiscord className="w-5 h-5" />
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              className="flex items-center gap-2"
+              onClick={async () => await oAuthSignIn("github")}
+            >
+              <SiGithub className="w-5 h-5" />
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              className="flex items-center gap-2"
+              onClick={async () => await oAuthSignIn("google")}
+            >
+              <SiGoogle className="w-5 h-5" />
+            </Button>
+          </div>
         </div>
+
         <FormField
           control={form.control}
           name="email"
@@ -84,6 +100,7 @@ export function SignInForm() {
             </FormItem>
           )}
         />
+
         <div className="flex gap-4 justify-end">
           <Button asChild variant="link">
             <Link href="/sign-up">Sign Up</Link>

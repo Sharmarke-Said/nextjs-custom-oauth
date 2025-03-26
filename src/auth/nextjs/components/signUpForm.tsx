@@ -8,8 +8,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { SiGithub, SiGoogle, SiDiscord } from "react-icons/si";
 import { oAuthSignIn, signUp } from "../actions";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -20,6 +22,7 @@ import Link from "next/link";
 export function SignUpForm() {
   const [error, setError] = useState<string>();
   const form = useForm<z.infer<typeof signUpSchema>>({
+    resolver: zodResolver(signUpSchema), // ✅ Added resolver
     defaultValues: {
       name: "",
       email: "",
@@ -29,7 +32,7 @@ export function SignUpForm() {
 
   async function onSubmit(data: z.infer<typeof signUpSchema>) {
     const error = await signUp(data);
-    setError(error);
+    if (error) setError(error); // ✅ Ensure error exists before setting
   }
 
   return (
@@ -39,20 +42,38 @@ export function SignUpForm() {
         className="space-y-8"
       >
         {error && <p className="text-destructive">{error}</p>}
-        <div className="flex gap-4">
-          <Button
-            type="button"
-            onClick={async () => await oAuthSignIn("discord")}
-          >
-            Discord
-          </Button>
-          <Button
-            type="button"
-            onClick={async () => await oAuthSignIn("github")}
-          >
-            GitHub
-          </Button>
+
+        {/* OAuth Section */}
+        <div className="text-center space-y-4">
+          <p className="text-gray-500">Continue as</p>
+          <div className="flex justify-center gap-3">
+            <Button
+              type="button"
+              variant="outline"
+              className="flex items-center gap-2"
+              onClick={() => oAuthSignIn("discord")} // ✅ Removed await
+            >
+              <SiDiscord className="w-5 h-5" />
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              className="flex items-center gap-2"
+              onClick={() => oAuthSignIn("github")} // ✅ Removed await
+            >
+              <SiGithub className="w-5 h-5" />
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              className="flex items-center gap-2"
+              onClick={() => oAuthSignIn("google")} // ✅ Removed await
+            >
+              <SiGoogle className="w-5 h-5" />
+            </Button>
+          </div>
         </div>
+
         <FormField
           control={form.control}
           name="name"
@@ -92,6 +113,7 @@ export function SignUpForm() {
             </FormItem>
           )}
         />
+
         <div className="flex gap-4 justify-end">
           <Button asChild variant="link">
             <Link href="/sign-in">Sign In</Link>
