@@ -10,8 +10,8 @@ export default function SignUp() {
   return (
     <div className="container mx-auto p-4 max-w-[750px]">
       <Card>
-        <CardHeader>
-          <CardTitle>Sign Up</CardTitle>
+        <CardHeader className="text-center">
+          <CardTitle className="text-center">Sign Up</CardTitle>
         </CardHeader>
         <CardContent>
           <SignUpForm />
