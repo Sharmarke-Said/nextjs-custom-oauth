@@ -14,6 +14,9 @@ This is a [Next.js](https://nextjs.org) project that implements custom OAuth aut
 - GitHub OAuth provides a way for users to authenticate with their GitHub accounts. This integration is ideal for platforms that are developer-centric or need access to GitHub repositories or user data. When users authenticate via GitHub, their profile information, such as username and email (if public), is retrieved for account management.
 - To set up GitHub OAuth, you'll need to register your application on [GitHub Developer Settings](https://github.com/settings/developers) to obtain your `Client ID` and `Client Secret`.
 
+
+### 3. **Google OAuth**:
+
 Google OAuth enables users to sign in using their Google accounts, providing a seamless authentication experience. This integration is widely used due to Google's extensive user base and reliability. Upon authentication, the application can access basic profile details like the user's name, email, and profile picture.
 
 To configure Google OAuth, you must create a project in the Google Cloud Console, enable the Google OAuth API, and generate Client ID and Client Secret credentials. Ensure you set up authorized redirect URIs in the Google Developer Console to match your application's callback endpoints.
