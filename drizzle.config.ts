@@ -1,5 +1,12 @@
-import { env } from "@/data/env/server";
 import { defineConfig } from "drizzle-kit";
+import * as dotenv from "dotenv";
+import { parse } from "pg-connection-string";
+
+// Load .env file
+dotenv.config();
+
+// Parse DATABASE_URL
+const connection = parse(process.env.DATABASE_URL!);
 
 export default defineConfig({
   out: "./src/drizzle/migrations",
@@ -8,10 +15,11 @@ export default defineConfig({
   strict: true,
   verbose: true,
   dbCredentials: {
-    password: env.DB_PASSWORD!,
-    user: env.DB_USER!,
-    database: env.DB_NAME!,
-    host: env.DB_HOST!,
-    ssl: false,
+    host: connection.host!,
+    port: connection.port ? parseInt(connection.port) : 5432,
+    user: connection.user!,
+    password: connection.password!,
+    database: connection.database!,
+    ssl: true, // or false if you're local
   },
 });

@@ -1,4 +1,4 @@
-import { SignUpForm } from "@/auth/nextjs/components/SignUpForm";
+import { SignUpForm } from "@/auth/nextjs/components/signUpForm";
 import {
   Card,
   CardContent,
